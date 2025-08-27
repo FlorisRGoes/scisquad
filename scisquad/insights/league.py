@@ -63,28 +63,32 @@ class SeasonTeamInsights:
 
         return season_teams
 
-    def analyze_teams(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    def analyze_teams(self) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
         """Analyze insights for all teams in a season.
 
         Returns
         -------
         df_performance_insights: pd.DataFrame
             Aggregated performance insights for all teams.
-        df_transfer_insights: pd.DataFrame
+        df_inbound_transfer_insights: pd.DataFrame
+            Aggregated transfer insights for all teams.
+        df_outbound_transfer_insights: pd.DataFrame
             Aggregated transfer insights for all teams.
         df_revenue_insights: pd.DataFrame
             Aggregated revenue insights for all teams.
         """
         performance_insights = []
-        transfer_insights = []
+        inbound_transfer_insights = []
+        outbound_transfer_insights = []
         revenue_insights = []
 
         for team in tqdm(
                 self.teams,
                 f"Analyzing all teams in {self._season.league_name} ({self._season.season_name})"
         ):
-            performance_insights.append(SquadPerformanceInsights(team))
-            transfer_insights.append(SquadTransferInsights(team))
-            revenue_insights.append(SquadRevenueInsights(team))
+            performance_insights.append(SquadPerformanceInsights(team).get_team_performance_insights())
+            inbound_transfer_insights.append(SquadTransferInsights(team).analyze_inbound())
+            outbound_transfer_insights.append(SquadTransferInsights(team).analyze_outbound())
+            revenue_insights.append(SquadRevenueInsights(team).get_squad_revenue_insights())
 
-        return pd.DataFrame(performance_insights), pd.DataFrame(transfer_insights), pd.DataFrame(revenue_insights)
+        return pd.DataFrame(performance_insights), pd.DataFrame(inbound_transfer_insights), pd.DataFrame(outbound_transfer_insights), pd.DataFrame(revenue_insights)
