@@ -168,7 +168,7 @@ class GuidedSearchAPI(RecruitmentAPI):
             budget: int = 0,
             age_lower: int = 18,
             age_upper: int = 35,
-    ):
+    ) -> pd.DataFrame:
         """Search for players on a given position using recommended filter criteria.
 
         Parameters
