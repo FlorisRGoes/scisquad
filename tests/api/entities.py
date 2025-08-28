@@ -31,7 +31,7 @@ leagues = API.get_leagues(
 )
 seasons = API.get_league_seasons(leagues[0])
 LA = SeasonTeamInsights(seasons[0], TeamsAPI(credentials))
-df_performance_insights, df_transfer_insights, df_revenue_insights = LA.analyze_teams()
+df_performance_insights, df_inbound_transfer_insights, df_outbound_transfer_insights, df_revenue_insights = LA.analyze_teams()
 
 '''
 tAPI = TeamsAPI(credentials)

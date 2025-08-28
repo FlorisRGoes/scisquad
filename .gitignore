@@ -100,3 +100,6 @@ venv.bak/
 
 # Local test configs
 *.local
+.env
+demos/*.html
+demos/Bologna FC 1909_Dashboard_DEMO.html
